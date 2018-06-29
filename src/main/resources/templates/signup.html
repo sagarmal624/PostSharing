@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/frontpage.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div th:replace="fragments/NavBar :: header">...</div>
+
+<h2>User Sign Up</h2>
+
+<form action="/signup" method="post" th:object="${user}">
+    <div class="imgcontainer">
+        <img src="img_avatar2.png" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+        <hr>
+        <input type="hidden" name="id" required th:value="${user.id}">
+
+        <label for="email"><b>E-mail</b></label>
+        <input type="text" placeholder="Enter E-mail" name="email" required th:value="${user.email}">
+
+        <label for="username"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="username" required th:value="${user.username}">
+
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" required th:value="${user.password}">
+
+        <label for="firstname"><b>firstName</b></label>
+        <input type="text" placeholder="Enter firstName" name="firstname" required th:value="${user.firstname}">
+
+        <label for="lastname"><b>Lastname</b></label>
+        <input type="text" placeholder="Enter LastName" name="lastname" required th:value="${user.lastname}">
+
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+        <button type="submit" class="signup" th:text="${user.id}?'Update':'Signup'"/>
+
+
+        <button type="button" class="cancelbtn">Cancel</button>
+
+    </div>
+</form>
+
+
+</body>
+</html>

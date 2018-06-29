@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/frontpage.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-inverse" th:fragment="header">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">WebSiteName</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span
+                    class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Page 1-1</a></li>
+                    <li><a href="#">Page 1-2</a></li>
+                    <li><a href="#">Page 1-3</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Page 2</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Topic <span
+                    class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/topic">Enter new topic</a></li>
+                    <li><a href="/topics">View Topics</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Resource <span
+                    class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/linkResource">Link Resource</a></li>
+                    <li><a href="/documentResource">Document Resource</a></li>
+                </ul>
+            </li>
+            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li><a href="/crud"><span class="glyphicon glyphicon-log-in"></span> Manage Accounts</a></li>
+        </ul>
+    </div>
+</nav>
+
+<h2>User Log In</h2>
+<div th:if="${!status}" th:text="${message}" class="alert alert-danger"/>
+<form action="/checklogin" method="post">
+
+    <div class="container">
+
+
+        <label for="uname"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="username" required>
+
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+
+
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+        <button type="submit" class="signup">Login</button>
+
+
+        <button type="button" class="cancelbtn">Cancel</button>
+
+    </div>
+</form>
+
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div th:replace="fragments/NavBar :: header">...</div>
+<div class="container">
+
+    <!--    <div th:if="${status}" th:text="${message}" class="alert alert-success"/>-->
+    <div class="col-md-8">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Email</th>
+                <th>UserName</th>
+                <th>Password</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="user:${users}">
+                <td><span th:text="${user.email}"/></td>
+                <td><span th:text="${user.username}"/></td>
+                <td><span th:text="${user.password}"/></td>
+                <td><span th:text="${user.firstname}"/></td>
+                <td><span th:text="${user.lastname}"/></td>
+
+                <td>
+                    <a th:href="@{delete/__${user.id}__}">Delete</a>
+                    <a th:href="@{edit/__${user.id}__}">Update</a>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <form name="searchForm" action="/search" method="post">
+            <label for="search"><b>Search by id</b></label>
+            <input type="text" name="username" placeholder="Enter search by username" required/>
+            <input type="submit" value="Search"/>
+            <!--<a th:href="@{search/__${id}__}">Search</a>-->
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

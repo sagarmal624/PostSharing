@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div th:replace="fragments/NavBar :: header">...</div>
+<div class="container">
+
+    <!--    <div th:if="${status}" th:text="${message}" class="alert alert-success"/>-->
+    <div class="col-md-8">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>DateCreated</th>
+                <th>Name</th>
+                <th>Visibility</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="topic:${topics}">
+                <td><span th:text="${topic.datecreated}"/></td>
+                <td><span th:text="${topic.name}"/></td>
+                <td><span th:text="${topic.visibility.name()}"/></td>
+
+                <td>
+                    <a th:href="@{topic/delete/__${topic.id}__}">Delete</a>
+                    <a th:href="@{topic/edit/__${topic.id}__}">Update</a>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

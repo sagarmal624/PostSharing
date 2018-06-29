@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/frontpage.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div th:replace="fragments/NavBar :: header">...</div>
+<form action="/saveresourcebtn" method="post">
+
+
+    <div class="container">
+
+
+        <label for="filePath"><b>File Path</b></label>
+        <input type="text" placeholder="Enter file path" name="filePath" required >
+
+        <label for="description"><b>Description</b></label>
+        <input type="text" placeholder="Enter description" name="description" required >
+
+
+
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+        <button type="submit" class="signup" >Save</button>
+
+
+        <button type="button" class="cancelbtn">Cancel</button>
+
+    </div>
+</form>
+
+</body>
+</html>

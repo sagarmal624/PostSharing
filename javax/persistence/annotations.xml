@@ -1,0 +1,5 @@
+<root>
+    <item name='javax.persistence.Id'>
+        <annotation name='java.lang.Deprecated'/>
+    </item>
+</root>
