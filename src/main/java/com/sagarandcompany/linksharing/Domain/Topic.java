@@ -2,11 +2,10 @@ package com.sagarandcompany.linksharing.Domain;
 
 //import org.springframework.data.annotation.Id;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity(name = "topic")
 public class Topic {
@@ -18,6 +17,16 @@ public class Topic {
     //    private User createdby;
     private Date datecreated;
     private Visibility visibility;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Resource> resources=new ArrayList<>();
+
+    public List<Resource> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
+    }
 
     public String getName() {
         return name;
