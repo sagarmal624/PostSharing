@@ -15,21 +15,24 @@
 
 <h2>Topic</h2>
 
-<form action="/save" method="post" th:object="${topic}">
+<form action="/save" method="post">
 
     <div class="container">
         <hr>
         <input type="hidden" name="id" required th:value="${topic.id}">
 
         <label for="name"><b>Topic Name</b></label>
-        <input type="text" placeholder="Enter Username" name="name" required th:value="${topic.name}">
+        <input type="text" placeholder="Enter Topicname" name="name" th:value="${topic.name}">
+        <span th:if="${#fields.hasErrors('topic.name')}" th:errors="*{topic.name}" style="color: red;"></span>
+        <br>
+
 
         <label for="visibility"><b>visibility</b></label>
         <select class="form-select-button" name="visibility" th:value="${topic.visibility}">
-            <option selected>-Select-</option>
             <option value="PUBLIC">Public</option>
             <option value="PRIVATE">Private</option>
         </select>
+              style="color: red;"></span>
 
 
     </div>

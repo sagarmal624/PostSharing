@@ -1,6 +1,9 @@
 package com.sagarandcompany.linksharing.Domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,10 +12,22 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull(message = "Email Can't be null")
+    @NotEmpty(message = "Email Can't be Empty")
+    @Size(min = 5, max = 30)
     private String email;
     @Column(unique = true)
+    @NotNull
+    @NotEmpty
+    @Size(min = 5, max = 20)
     private String username;
+    @NotNull
+    @NotEmpty
+    @Size(min = 5, max = 20)
     private String password;
+    @NotNull
+    @NotEmpty
+    @Size(min = 3, max = 50)
     private String firstname;
     private String lastname;
     @OneToMany(cascade = CascadeType.ALL)

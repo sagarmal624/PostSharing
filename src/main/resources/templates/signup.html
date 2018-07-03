@@ -15,29 +15,35 @@
 
 <h2>User Sign Up</h2>
 
-<form action="/signup" method="post" th:object="${user}">
+<form action="/signup" method="post">
     <div class="imgcontainer">
         <img src="img_avatar2.png" alt="Avatar" class="avatar">
     </div>
 
     <div class="container">
         <hr>
-        <input type="hidden" name="id" required th:value="${user.id}">
+        <input type="hidden" name="id" th:value="${user.id}">
 
         <label for="email"><b>E-mail</b></label>
-        <input type="text" placeholder="Enter E-mail" name="email" required th:value="${user.email}">
+        <input type="text" placeholder="Enter E-mail" name="email" th:value="${user.email}">
+        <!--<span style="color: red" th:if="${  #fields.hasErrors('user.email')}" th:errors="*{user.email}"/>-->
 
+        <span th:if="${#fields.hasErrors('user.email')}" th:errors="*{user.email}" style="color: red;"></span>
         <label for="username"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="username" required th:value="${user.username}">
+        <input type="text" placeholder="Enter Username" name="username" th:value="${user.username}">
+        <span th:if="${#fields.hasErrors('user.username')}" th:errors="*{user.username}" style="color: red;"></span>
 
         <label for="password"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="password" required th:value="${user.password}">
+        <input type="password" placeholder="Enter Password" name="password" th:value="${user.password}">
+        <span th:if="${#fields.hasErrors('user.password')}" th:errors="*{user.password}" style="color: red;"></span>
 
         <label for="firstname"><b>firstName</b></label>
-        <input type="text" placeholder="Enter firstName" name="firstname" required th:value="${user.firstname}">
+        <input type="text" placeholder="Enter firstName" name="firstname" th:value="${user.firstname}">
+        <span th:if="${#fields.hasErrors('user.firstname')}" th:errors="*{user.firstname}" style="color: red;"></span>
 
         <label for="lastname"><b>Lastname</b></label>
-        <input type="text" placeholder="Enter LastName" name="lastname" required th:value="${user.lastname}">
+        <input type="text" placeholder="Enter LastName" name="lastname" th:value="${user.lastname}">
+        <span th:if="${#fields.hasErrors('user.lastname')}" th:errors="*{user.lastname}" style="color: red;"></span>
 
     </div>
 

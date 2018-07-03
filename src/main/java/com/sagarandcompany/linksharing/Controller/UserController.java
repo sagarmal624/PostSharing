@@ -4,11 +4,14 @@ import com.sagarandcompany.linksharing.Domain.User;
 import com.sagarandcompany.linksharing.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 @Controller
 public class UserController {
@@ -24,10 +27,16 @@ public class UserController {
 
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public ModelAndView usersignup(@ModelAttribute User user) {
-        userService.save(user);
-        System.out.println(user.toString());
-        ModelAndView modelAndView = new ModelAndView("manageaccounts");
+    public ModelAndView usersignup(@Valid @ModelAttribute User user, BindingResult bindingResult) {
+        ModelAndView modelAndView = null;
+        if (bindingResult.hasErrors()) {
+            modelAndView = new ModelAndView("signup");
+            modelAndView.addObject("user", user);
+        } else {
+            userService.save(user);
+            System.out.println(user.toString());
+            modelAndView = new ModelAndView("manageaccounts");
+        }
         return modelAndView;
     }
 

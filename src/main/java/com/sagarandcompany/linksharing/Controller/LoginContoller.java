@@ -28,4 +28,11 @@ public class LoginContoller {
             return modelAndView;
         }
     }
+
+    @RequestMapping("/logout")
+    public String logout(HttpSession httpSession){
+        httpSession.removeAttribute("user");
+        httpSession.invalidate();
+        return "redirecr:/home";
+    }
 }

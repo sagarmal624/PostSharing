@@ -3,6 +3,9 @@ package com.sagarandcompany.linksharing.Domain;
 //import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,12 +16,15 @@ public class Topic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull(message = "Name Can't be null")
+    @NotEmpty(message = "Name Can't be Empty")
+    @Size(min = 5, max = 30)
     private String name;
     //    private User createdby;
     private Date datecreated;
     private Visibility visibility;
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Resource> resources=new ArrayList<>();
+    private List<Resource> resources = new ArrayList<>();
 
     public List<Resource> getResources() {
         return resources;

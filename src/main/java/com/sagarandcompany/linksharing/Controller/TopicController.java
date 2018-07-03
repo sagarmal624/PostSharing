@@ -4,6 +4,7 @@ import com.sagarandcompany.linksharing.Domain.Topic;
 import com.sagarandcompany.linksharing.Service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
 public class TopicController {
@@ -26,11 +28,17 @@ public class TopicController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ModelAndView saveTopic(@ModelAttribute Topic topic, HttpSession httpSession) {
-        topicService.save(topic, httpSession);
-        System.out.println(topic.toString());
-        ModelAndView modelAndView = new ModelAndView("topictable");
-        modelAndView.addObject("topics", topicService.getAll());
+    public ModelAndView saveTopic(@Valid @ModelAttribute Topic topic, HttpSession httpSession, BindingResult bindingResult) {
+        ModelAndView modelAndView = null;
+        if (bindingResult.hasErrors()) {
+            modelAndView = new ModelAndView("topic");
+            modelAndView.addObject("topic", topic);
+        } else {
+            topicService.save(topic, httpSession);
+            System.out.println(topic.toString());
+            modelAndView = new ModelAndView("topictable");
+            modelAndView.addObject("topics", topicService.getAll());
+        }
         return modelAndView;
     }
 
@@ -52,7 +60,7 @@ public class TopicController {
     @RequestMapping(value = "/topic/edit/{id}", method = RequestMethod.GET)
     public ModelAndView userupdate(@PathVariable Long id, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView("topic");
-        modelAndView.addObject("topic",topicService.getId(id));
+        modelAndView.addObject("topic", topicService.getId(id));
         return modelAndView;
     }
 
