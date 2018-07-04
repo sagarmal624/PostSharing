@@ -38,14 +38,15 @@ public class ResourceController {
     }
 
     @RequestMapping(value = "/savelink", method = RequestMethod.POST)
-    public ModelAndView saveLinkResource(@Valid @ModelAttribute LinkResource linkResource,BindingResult bindingResult) {
-        ModelAndView modelAndView=null;
-        if(bindingResult.hasErrors()){
-            modelAndView=new ModelAndView("linkresource");
-            modelAndView.addObject("linkResource",linkResource);
-        }else {
+    public ModelAndView saveLinkResource(@Valid @ModelAttribute LinkResource linkResource, BindingResult bindingResult) {
+        ModelAndView modelAndView = null;
+        if (bindingResult.hasErrors()) {
+            modelAndView = new ModelAndView("linkresource");
+            modelAndView.addObject("linkResource", linkResource);
+        } else {
             linkResourceService.saveLink(linkResource);
             modelAndView = new ModelAndView("linkresource");
+            modelAndView.addObject("linkResource", new LinkResource());
         }
         return modelAndView;
     }
@@ -58,46 +59,46 @@ public class ResourceController {
     }
 
     @RequestMapping(value = "/linkresource/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView deleteLinkResource(@PathVariable Long id,HttpSession httpSession) {
+    public ModelAndView deleteLinkResource(@PathVariable Long id, HttpSession httpSession) {
         ModelAndView modelAndView = new ModelAndView("redirect:/");
-       linkResourceService.delete(id,httpSession);
+        linkResourceService.delete(id, httpSession);
         return modelAndView;
     }
 
 
     @RequestMapping(value = "/documentResource", method = RequestMethod.GET)
-    public ModelAndView getDocumentResoucre(HttpSession httpSession){
+    public ModelAndView getDocumentResoucre(HttpSession httpSession) {
         ModelAndView modelAndView = new ModelAndView("documentresource");
-        modelAndView.addObject("documentResource",new DocumentResource());
-        modelAndView.addObject("topics",resourceService.topics(httpSession));
+        modelAndView.addObject("documentResource", new DocumentResource());
+        modelAndView.addObject("topics", resourceService.topics(httpSession));
         return modelAndView;
     }
 
     @RequestMapping(value = "/savedocument", method = RequestMethod.POST)
     public ModelAndView saveDocumentResource(@Valid @ModelAttribute DocumentResource documentResource, BindingResult bindingResult) {
-        ModelAndView modelAndView=null;
-        if(bindingResult.hasErrors()) {
+        ModelAndView modelAndView = null;
+        if (bindingResult.hasErrors()) {
             modelAndView = new ModelAndView("documentresource");
             modelAndView.addObject("documentResource", documentResource);
-        }else {
+        } else {
             documentResourceService.savedocument(documentResource);
             modelAndView = new ModelAndView("documentresource");
         }
         return modelAndView;
     }
 
-    @RequestMapping(value = "/documentresource/edit/{id}",method = RequestMethod.GET)
-    public ModelAndView editDocumentResource(@PathVariable Long id){
-        ModelAndView modelAndView=new ModelAndView("documentresource");
-        modelAndView.addObject("documentResource",documentResourceService.getById(id));
+    @RequestMapping(value = "/documentresource/edit/{id}", method = RequestMethod.GET)
+    public ModelAndView editDocumentResource(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("documentresource");
+        modelAndView.addObject("documentResource", documentResourceService.getById(id));
         return modelAndView;
 
     }
 
-    @RequestMapping(value = "/documentresource/delete/{id}",method = RequestMethod.GET)
-    public ModelAndView deleteDocumentResource(@PathVariable long id, HttpSession httpSession){
-        ModelAndView modelAndView= new ModelAndView("redirect:/");
-        documentResourceService.delete(id,httpSession);
+    @RequestMapping(value = "/documentresource/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteDocumentResource(@PathVariable long id, HttpSession httpSession) {
+        ModelAndView modelAndView = new ModelAndView("redirect:/");
+        documentResourceService.delete(id, httpSession);
         return modelAndView;
     }
 }

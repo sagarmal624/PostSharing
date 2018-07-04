@@ -28,7 +28,7 @@ public class TopicController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ModelAndView saveTopic(@Valid @ModelAttribute Topic topic, HttpSession httpSession, BindingResult bindingResult) {
+    public ModelAndView saveTopic(@Valid @ModelAttribute Topic topic, BindingResult bindingResult, HttpSession httpSession) {
         ModelAndView modelAndView = null;
         if (bindingResult.hasErrors()) {
             modelAndView = new ModelAndView("topic");

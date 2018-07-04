@@ -12,27 +12,32 @@
 <body>
 <div th:replace="fragments/NavBar :: header">...</div>
 
-<form action="/savelink" method="post">
+<form action="/savesubscription" method="post" >
 
 
     <div class="container">
-        <input type="hidden" name="id" th:value="${linkResource.id}">
+        <input type="hidden" name="id" th:value="${id}">
 
-        <label for="description"><b>Discription</b></label>
-        <input type="text" placeholder="Enter Discription" name="description" th:value="${linkResource.description}">
-        <span th:if="${#fields.hasErrors('linkResource.description')}" th:errors="*{linkResource.description}"
-              style="color: red;"></span>
+        <label for="subscription"><b>User</b></label>
+        <select class="form-control" name="user.id">
+            <option>-Select-</option>
+            <option th:each="user:${users}" th:text="${user.username}" th:value="${user.id}"></option>
+        </select>
 
-        <label for="url"><b>URL</b></label>
-        <input type="text" placeholder="Enter URL" name="url" th:value="${linkResource.url}">
-        <span th:if="${#fields.hasErrors('linkResource.url')}" th:errors="*{linkResource.url}"
-              style="color: red;"></span>
 
-        topics
-        <label for="url"><b>URL</b></label>
+        <label for="subscription"><b>Topic</b></label>
         <select class="form-control" name="topic.id">
             <option>-Select-</option>
             <option th:each="topic:${topics}" th:text="${topic.name}" th:value="${topic.id}"></option>
+        </select>
+
+
+
+        <label for="seriousness"><b>seriousness</b></label>
+        <select class="form-select-button" name="seriousness" th:value="${seriousness}">
+            <option value="Serious">Serious</option>
+            <option value="Very Serious">Very Serious</option>
+            <option value="Casual">Casual</option>
         </select>
 
     </div>
@@ -47,8 +52,8 @@
 </form>
 <div class="container">
     <input type="text" placeholder="Enter the id" name="id" id="searchId" required>
-    <a id="deleteLinkResource" href="#">Delete</a>
-    <a id="editLinkResource" href="#">Edit</a>
+    <a id="deleteSubscription" href="#">Delete</a>
+    <a id="editSubscription" href="#">Edit</a>
 </div>
 
 
@@ -56,8 +61,8 @@
     $(document).ready(function () {
         $("#searchId").on('input', function () {
             var value = $("#searchId").val();
-            $("#deleteLinkResource").attr('href', '/linkresource/delete/' + value);
-            $("#editLinkResource").attr('href', '/linkresource/edit/' + value);
+            $("#deleteSubscription").attr('href', '/subscription/delete/' + value);
+            $("#editSubscription").attr('href', '/subscription/edit/' + value);
         })
     });
 

@@ -1,6 +1,10 @@
 package com.sagarandcompany.linksharing.Service;
 
-import com.sagarandcompany.linksharing.Domain.*;
+import com.sagarandcompany.linksharing.Controller.RecordNotFoundException;
+import com.sagarandcompany.linksharing.Domain.LinkResource;
+import com.sagarandcompany.linksharing.Domain.Resource;
+import com.sagarandcompany.linksharing.Domain.Topic;
+import com.sagarandcompany.linksharing.Domain.User;
 import com.sagarandcompany.linksharing.Repository.ResourceRepository;
 import com.sagarandcompany.linksharing.Repository.TopicRepository;
 import com.sagarandcompany.linksharing.Repository.UserRepository;
@@ -10,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LinkResourceService {
@@ -25,7 +30,7 @@ public class LinkResourceService {
     public LinkResource saveLink(LinkResource linkResource) {
         Date date = new Date();
         Topic topic = topicRepository.getOne(linkResource.getTopic().getId());
-        List<Resource> resourceList=topic.getResources();
+        List<Resource> resourceList = topic.getResources();
         if (linkResource.getId() == null) {
             linkResource.setDatecreated(date);
             linkResource.setLastupdated(date);
@@ -48,7 +53,11 @@ public class LinkResourceService {
     public void delete(Long id, HttpSession httpSession) {
         User sessionuser = (User) httpSession.getAttribute("user");
         User user = userRepository.findById(sessionuser.getId()).get();
-        LinkResource linkResource = (LinkResource) resourceRepository.findById(id).get();
+        Optional<Resource> optional = resourceRepository.findById(id);
+        if (!optional.isPresent()) {
+            throw new RecordNotFoundException("linkResource Not Found");
+        }
+        LinkResource linkResource = (LinkResource) optional.get();
         Topic topic = linkResource.getTopic();
         List<Resource> resources = topic.getResources();
         resources.remove(linkResource);

@@ -32,6 +32,16 @@ public class User {
     private String lastname;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Topic> topics = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    private  List<Subscription> subscriptions=new ArrayList<>();
+
+    public List<Subscription> getSubscriptions() {
+        return subscriptions;
+    }
+
+    public void setSubscriptions(List<Subscription> subscriptions) {
+        this.subscriptions = subscriptions;
+    }
 
     public List<Topic> getTopics() {
         return topics;

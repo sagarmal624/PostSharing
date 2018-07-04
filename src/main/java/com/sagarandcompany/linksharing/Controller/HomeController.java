@@ -1,5 +1,6 @@
 package com.sagarandcompany.linksharing.Controller;
 
+import com.sagarandcompany.linksharing.Service.TopicService;
 import com.sagarandcompany.linksharing.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,11 +13,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
     @Autowired
     UserService userService;
+    @Autowired
+    TopicService topicService;
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView("index");
-
+        modelAndView.addObject("topics", topicService.gettentopic());
         return modelAndView;
     }
 

@@ -25,6 +25,16 @@ public class Topic {
     private Visibility visibility;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Resource> resources = new ArrayList<>();
+    @OneToMany(cascade =CascadeType.ALL )
+    private  List<Subscription> subscriptions=new ArrayList<>();
+
+    public List<Subscription> getSubscriptions() {
+        return subscriptions;
+    }
+
+    public void setSubscriptions(List<Subscription> subscriptions) {
+        this.subscriptions = subscriptions;
+    }
 
     public List<Resource> getResources() {
         return resources;
