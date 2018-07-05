@@ -22,35 +22,62 @@
     <div class="container" th:object="${topic}">
 
         <!--    <div th:if="${status}" th:text="${message}" class="alert alert-success"/>-->
-        <div class="col-md-8">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Top Posts</div>
+                <div style="height:600px;width:540px;overflow:scroll;overflow-x:hidden;overflow-y:scroll;">
+                    <div class="panel-body" th:each="topic:${topics}">
 
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>DateCreated</th>
-                    <th>Name</th>
-                    <th>Visibility</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
+                        <table class="table">
+                            <!-- <thead>
+                             <tr>
+                                 <th>DateCreated</th>
+                                 <th>Name</th>
+                                 <th>Visibility</th>
+                                 <th>Action</th>
+                             </tr>
+                             </thead>-->
+                            <tbody>
 
-                <tr th:each="topic:${topics}">
-                    <td><span th:text="${topic.datecreated}"/></td>
-                    <td><span th:text="${topic.name}"/></td>
-                    <td><span th:text="${topic.visibility.name()}"/></td>
+                            <tr>
+                                <td><img src="https://cdn0.iconfinder.com/data/icons/PRACTIKA/256/user.png"
+                                         class="img-circle" alt="Cinque Terre" width="100" height="100"></td>
+                                <td><span th:text="${topic.createdby.username}"/></td>
+                                <td><span th:text="${topic.name}"/></td>
+                                <td><span th:text="${topic.visibility.name()}"/></td>
+                                <td><a th:href="@{topic/unsubscribe/__${topic.id}__}"
+                                       th:if="${topic.subscribed}">UnSubscribe</a>
 
-                    <td>
-                        <a th:href="@{topic/delete/__${topic.id}__}">Delete</a>
-                        <a th:href="@{topic/edit/__${topic.id}__}">Update</a>
-                    </td>
-                </tr>
+                                </td>
+                                <td><a th:href="@{topic/subscribe/__${topic.id}__}"
+                                       th:unless="${topic.subscribed}">Subscribe</a></td>
+                                <!-- <td>
+                                     <a th:href="@{topic/delete/__${topic.id}__}">Delete</a>
+                                     <a th:href="@{topic/edit/__${topic.id}__}">Update</a>
+                                 </td>-->
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
 
-                </tbody>
-            </table>
+                            <div class="col-sm-1"><img
+                                    src="http://pngimg.com/uploads/facebook_logos/facebook_logos_PNG19761.png"
+                                    class="img-rounded" alt="Cinque Terre" width="45" height="45"></div>
+                            <div class="col-sm-1"><img
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdlzxD_EcjHhU0ugjCKaU5KBvxz0iRi4ae9NKSwOOmcb8BV2Xv"
+                                    class="img-rounded" alt="Cinque Terre" width="40" height="45" align="center"></div>
+                            <div class="col-sm-1"><img
+                                    src="data:image/png;base64,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"
+                                    class="img-rounded" alt="Cinque Terre" width="65" height="45"></div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
         </div>
     </div>
-</div>
 
 
 </body>

@@ -1,5 +1,6 @@
 package com.sagarandcompany.linksharing.Service;
 
+import com.sagarandcompany.linksharing.Domain.Seriousness;
 import com.sagarandcompany.linksharing.Domain.Subscription;
 import com.sagarandcompany.linksharing.Domain.Topic;
 import com.sagarandcompany.linksharing.Domain.User;
@@ -22,8 +23,8 @@ public class SubscriptionService {
     @Autowired
     TopicRepository topicRepository;
 
-    public List<User>subscriptionuser(){
-        List<User> users=userRepository.findAll();
+    public List<User> subscriptionuser() {
+        List<User> users = userRepository.findAll();
         return users;
     }
 
@@ -33,31 +34,37 @@ public class SubscriptionService {
         return user.getTopics();
 
     }
-    public Subscription saveSubscription(Subscription subscription){
-        Date date=new Date();
+
+    public Subscription saveSubscription(Long topicId, HttpSession httpSession) {
+        Date date = new Date();
+        Topic topic = topicRepository.getOne(topicId);
+        User sessionuser = (User) httpSession.getAttribute("user");
+        User dbuser = userRepository.getOne(sessionuser.getId());
+        Subscription subscription = new Subscription();
+        subscription.setSeriousness(Seriousness.VerySerious);
+        subscription.setTopic(topic);
+        subscription.setUser(dbuser);
         subscription.setDateCreated(date);
-        User user=userRepository.getOne(subscription.getUser().getId());
-        Topic topic=topicRepository.getOne(subscription.getTopic().getId());
-        List<Subscription> subscriptions=topic.getSubscriptions();
+        List<Subscription> subscriptions = topic.getSubscriptions();
         subscriptions.add(subscription);
         topic.setSubscriptions(subscriptions);
         topicRepository.save(topic);
         return subscription;
-        }
+    }
 
-     public void deleteSubscription(Long id,HttpSession httpSession){
-        User sessionuser=(User) httpSession.getAttribute("user");
-        User user=userRepository.findById(sessionuser.getId()).get();
-        Subscription subscription=subscriptionRepository.findById(id).get();
-        Topic topic=subscription.getTopic();
-        List<Subscription> subscriptions=topic.getSubscriptions();
+    public void deleteSubscription(Long id, HttpSession httpSession) {
+        User sessionuser = (User) httpSession.getAttribute("user");
+        User user = userRepository.findById(sessionuser.getId()).get();
+        Subscription subscription = subscriptionRepository.findById(id).get();
+        Topic topic = subscription.getTopic();
+        List<Subscription> subscriptions = topic.getSubscriptions();
         subscriptions.remove(subscription);
         topicRepository.save(topic);
         subscriptionRepository.delete(subscription);
-     }
+    }
 
-     public Subscription searchById(Long id){
+    public Subscription searchById(Long id) {
         return subscriptionRepository.findById(id).get();
-     }
+    }
 
 }

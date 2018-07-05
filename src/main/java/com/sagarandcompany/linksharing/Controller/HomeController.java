@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+
 
 @Controller
 public class HomeController {
@@ -17,9 +19,16 @@ public class HomeController {
     TopicService topicService;
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public ModelAndView home() {
+    public ModelAndView home(HttpSession httpSession) {
         ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("topics", topicService.gettentopic());
+        modelAndView.addObject("topics", topicService.gettentopic(httpSession));
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ModelAndView contextPath(HttpSession httpSession) {
+        ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addObject("topics", topicService.gettentopic(httpSession));
         return modelAndView;
     }
 

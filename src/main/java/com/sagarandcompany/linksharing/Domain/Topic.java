@@ -20,13 +20,41 @@ public class Topic {
     @NotEmpty(message = "Name Can't be Empty")
     @Size(min = 5, max = 30)
     private String name;
-    //    private User createdby;
+    @OneToOne
+    private User createdby;
     private Date datecreated;
+    private Date lastupdated;
     private Visibility visibility;
+    private Boolean isSubscribed;
+
+    public Boolean getSubscribed() {
+        return isSubscribed;
+    }
+
+    public void setSubscribed(Boolean subscribed) {
+        isSubscribed = subscribed;
+    }
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<Resource> resources = new ArrayList<>();
-    @OneToMany(cascade =CascadeType.ALL )
-    private  List<Subscription> subscriptions=new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Subscription> subscriptions = new ArrayList<>();
+
+    public Date getLastupdated() {
+        return lastupdated;
+    }
+
+    public void setLastupdated(Date lastupdated) {
+        this.lastupdated = lastupdated;
+    }
+
+    public User getCreatedby() {
+        return createdby;
+    }
+
+    public void setCreatedby(User createdby) {
+        this.createdby = createdby;
+    }
 
     public List<Subscription> getSubscriptions() {
         return subscriptions;

@@ -16,7 +16,7 @@ public class LoginContoller {
 
     @RequestMapping("/checklogin")
     public ModelAndView login(String username, String password, HttpSession httpSession) {
-        ModelAndView modelAndView = new ModelAndView("index");
+        ModelAndView modelAndView = new ModelAndView("redirect:/home");
         User user = userService.isValid(username, password);
         if (user != null) {
             httpSession.setAttribute("user", user);
@@ -30,7 +30,7 @@ public class LoginContoller {
     }
 
     @RequestMapping("/logout")
-    public String logout(HttpSession httpSession){
+    public String logout(HttpSession httpSession) {
         httpSession.removeAttribute("user");
         httpSession.invalidate();
         return "redirecr:/home";

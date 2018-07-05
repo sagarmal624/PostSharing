@@ -5,6 +5,7 @@ import com.sagarandcompany.linksharing.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -12,7 +13,19 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public User save(User user) {
+    public User save(User user)
+    {
+        Date date=new Date();
+        if(user.getId()==null){
+            user.setDatecreated(date);
+            user.setLastupdated(date);
+        }
+        else{
+            user = userRepository.findById(user.getId()).get();
+            user.setDatecreated(user.getDatecreated());
+            user.setLastupdated(date);
+        }
+
         return userRepository.save(user);
     }
 

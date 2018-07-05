@@ -5,6 +5,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity(name = "user")
@@ -29,11 +30,29 @@ public class User {
     @NotEmpty
     @Size(min = 3, max = 50)
     private String firstname;
+    private Date datecreated;
+    private Date lastupdated;
     private String lastname;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Topic> topics = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL)
     private  List<Subscription> subscriptions=new ArrayList<>();
+
+    public Date getDatecreated() {
+        return datecreated;
+    }
+
+    public void setDatecreated(Date datecreated) {
+        this.datecreated = datecreated;
+    }
+
+    public Date getLastupdated() {
+        return lastupdated;
+    }
+
+    public void setLastupdated(Date lastupdated) {
+        this.lastupdated = lastupdated;
+    }
 
     public List<Subscription> getSubscriptions() {
         return subscriptions;
